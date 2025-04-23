@@ -8,12 +8,13 @@
 .authLeft{
     height: 100vh;
     width: 50%;
-    background-color: red;
+    background-image: url(../src/Images/pexels-cottonbro-6698312.jpg);
+    background-size: cover;
 }
 
 .authRight{
     height: 100vh;
-    width:40%;
+    width:50%;
     display: flex;
     /* align-items: center; */
     justify-content: center;
@@ -23,17 +24,34 @@
  
 }
 
-.authRight input{
+.authRight h1{
+    margin-bottom: 40px;
+}
+
+/* .authRight input{
     padding: 10px;
     margin-bottom: 20px;
     
+} */
+
+
+.navigateLinkCont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
 }
 
-.authRight button{
+
+.navigateLink{
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+.authRight button{ 
     padding: 10px;
     margin-top: 20px;
-    background-color: black;
-    color: white;
-    border: 1px solid black;
     cursor: pointer;
 }

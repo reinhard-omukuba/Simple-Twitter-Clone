@@ -6,8 +6,10 @@ import {db} from '../firebase'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import swal from 'sweetalert';
 
+//bootstrap
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner'; 
+import Spinner from 'react-bootstrap/Spinner';
+import Form from 'react-bootstrap/Form';
 
 
 
@@ -16,6 +18,7 @@ function Register() {
 
   const email = useRef();
   const password = useRef();
+  const fullName = useRef();
   const auth = getAuth();
 
   const [signInBtn, showsignInBtn] = useState(true);
@@ -55,12 +58,23 @@ function Register() {
 <div className='mainAuth'>
         <div className='authRight'>
             <h1>Sign Up</h1>
-            <input type="email" placeholder='enter your name' />
-            <input type="email" placeholder='enter your email' ref={email} />
-            <input type="password" placeholder='enter your password' ref={password} />
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Full Name address</Form.Label>
+              <Form.Control type="text" placeholder="your name" ref={fullName} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" placeholder="name@example.com" ref={email} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="password" ref={password} />
+            </Form.Group>
 
             {signInBtn && 
-                <button onClick={signUpUser}>Sign up</button>
+                <Button variant="primary" onClick={signUpUser}>Sign In</Button>
             }
 
             {loadingBtn &&
@@ -76,8 +90,12 @@ function Register() {
               </Button>
             }
 
+            <div className='navigateLinkCont'>
+                <Link to='/' className='navigateLink'>Already have an account? Sign in</Link>
+            </div>
 
-            <Link to='/'>Already have an account? Sign in</Link>
+
+            
         </div>
 
 
