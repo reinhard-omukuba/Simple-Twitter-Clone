@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // firebase
 import {db} from '../firebase'
@@ -20,6 +20,7 @@ function Register() {
   const password = useRef();
   const fullName = useRef();
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const [signInBtn, showsignInBtn] = useState(true);
   const [loadingBtn, showloadingBtn] = useState(false);
@@ -36,9 +37,7 @@ function Register() {
 
     createUserWithEmailAndPassword(auth, userEmail, userPassword).then((userCred)=>{
       //take an action after the user is created successfully 
-
-      //swal("Good job!", "You clicked the button!", "success");
-
+        navigate("/home")
 
     }).catch((err)=>{
       const errormessage = err.message;
@@ -74,7 +73,7 @@ function Register() {
             </Form.Group>
 
             {signInBtn && 
-                <Button variant="primary" onClick={signUpUser}>Sign In</Button>
+                <Button variant="primary" onClick={signUpUser}>Sign Up</Button>
             }
 
             {loadingBtn &&

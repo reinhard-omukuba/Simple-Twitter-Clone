@@ -55,3 +55,19 @@
     margin-top: 20px;
     cursor: pointer;
 }
+
+
+
+
+.blueDiv{
+    height: 200px;
+    width: 200px;
+    background-color: royalblue;
+}
+
+
+.redDiv{
+    height: 200px;
+    width: 200px;
+    background-color: red;
+}

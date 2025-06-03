@@ -1,5 +1,5 @@
 import React, { useRef,useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // firebase
 import {db} from '../firebase'
@@ -19,6 +19,7 @@ function Login() {
   const email = useRef()
   const password = useRef();
   const auth = getAuth();
+  const navigate = useNavigate()
 
   const [signInBtn, showsignInBtn] = useState(true);
   const [loadingBtn, showloadingBtn] = useState(false);
@@ -33,22 +34,20 @@ function Login() {
     showsignInBtn(false);
     showloadingBtn(true);
 
-    signInWithEmailAndPassword(auth, emailInput, passInput).then((userCred)=>{
-      swal("Good job!", "You clicked the button!", "success");
-
-    }).catch((error)=>{
-      const errormessage = error.message;
-      swal("Sign up error", errormessage , "error");
-
-      //change the state of the button
+    signInWithEmailAndPassword(auth, emailInput, passInput)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      navigate("/home")
+      // ...
+    })
+    .catch((error) => {
       showsignInBtn(true);
       showloadingBtn(false);
-      
-    })
-
-
-
-
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      swal("Sign up error", errorMessage , "error");
+    });
   }
 
   return (
