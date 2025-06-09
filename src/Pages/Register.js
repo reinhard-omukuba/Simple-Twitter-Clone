@@ -2,9 +2,10 @@ import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 // firebase
-import {db} from '../firebase'
+import {app} from '../firebase'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import swal from 'sweetalert';
+import { collection, addDoc, getFirestore } from "firebase/firestore"; 
 
 //bootstrap
 import Button from 'react-bootstrap/Button';
@@ -20,6 +21,7 @@ function Register() {
   const password = useRef();
   const fullName = useRef();
   const auth = getAuth();
+  const db = getFirestore(app)
   const navigate = useNavigate();
 
   const [signInBtn, showsignInBtn] = useState(true);
@@ -37,7 +39,18 @@ function Register() {
 
     createUserWithEmailAndPassword(auth, userEmail, userPassword).then((userCred)=>{
       //take an action after the user is created successfully 
-        navigate("/home")
+        //
+
+          const userid = userCred.user.uid; 
+          const timestamp = new Date();
+
+         const docRef =  addDoc(collection(db, "users",), {
+            email: userEmail,
+            signedUpdate:timestamp,
+            userId: userid
+          }).then(()=>{
+            navigate("/home");
+          })
 
     }).catch((err)=>{
       const errormessage = err.message;
