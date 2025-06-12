@@ -32,6 +32,7 @@ function Register() {
 
     const userEmail = email.current.value;
     const userPassword = password.current.value;
+    const username = fullName.current.value;
 
     //changing the state of the buttons
     showsignInBtn(false);
@@ -47,7 +48,8 @@ function Register() {
          const docRef =  addDoc(collection(db, "users",), {
             email: userEmail,
             signedUpdate:timestamp,
-            userId: userid
+            userId: userid,
+            username:username,
           }).then(()=>{
             navigate("/home");
           })
