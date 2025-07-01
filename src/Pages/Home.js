@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import {app} from '../firebase'
 import { collection, addDoc, getFirestore, where,query, getDocs, QuerySnapshot  } from "firebase/firestore"; 
 import swal from 'sweetalert';
+import { doc, deleteDoc } from "firebase/firestore";
+
 
 
 function Home() {
@@ -31,9 +33,9 @@ function Home() {
     const q = query(usersRef, where("userId", "==", userId));
     getDocs(q).then((QuerySnapshot)=>{
       QuerySnapshot.forEach((doc)=>{
-          console.log(doc.data())
+          //console.log(doc.data())
           const theName = doc.data().username; 
-          console.log(theName)
+          //console.log(theName)
           setUserName(theName);
       })
     })
@@ -102,8 +104,16 @@ function Home() {
     }, []);
 
 
+    
+    function deleteTweet(tweetId){
 
-    console.log(alltweets);   
+      deleteDoc(doc(db, "tweets", tweetId)).then(()=>{
+        window.location.reload();
+      })
+
+    } 
+
+
 
 
 
@@ -128,6 +138,7 @@ function Home() {
       {alltweets.map((tw) =>(
         <div key={tw.id}>
           <p>{tw.tweet}</p>
+          <button onClick={()=> deleteTweet(tw.id)}>Delete</button>
         </div>
       ))};
 
